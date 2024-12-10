@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">RotationGame</string>
+    <string name="play">Play</string>
+    <string name="welcome_to_the_rotation_game">Welcome to the Rotation Game!</string>
+</resources>
