@@ -1,6 +1,5 @@
 package com.example.rotationgame;
 
-// My Imports
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -84,7 +83,7 @@ public class ResultsActivity extends AppCompatActivity
 
             return score > lowestTopScore || cursor.getCount() < 5;
         }
-        // Kinda useless now, but the entry will always display is there isn't 5 entries
+        // Kinda useless now, but the entry will always display if there isn't 5 entries
         return true;
     }
 
@@ -99,29 +98,8 @@ public class ResultsActivity extends AppCompatActivity
 
         builder.setView(viewInflated);
 
-        builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
-        {
-            @Override
-            public void onClick(DialogInterface dialog, int which)
-            {
-                dialog.dismiss();
-                String name = input.getText().toString();
+        builder.setPositiveButton(android.R.string.ok, null);
 
-                if (!name.isEmpty())
-                {
-                    // Save the Score with the Entered Name in the Database
-                    DatabaseHelper dbHelper = new DatabaseHelper(ResultsActivity.this);
-                    dbHelper.addScore(name, score);
-                }
-                else
-                {
-                    // Validation if they Enter an Empty Name
-                    Toast.makeText(ResultsActivity.this, "Name cannot be empty", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-        // Cancel Button
         builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener()
         {
             @Override
@@ -132,6 +110,51 @@ public class ResultsActivity extends AppCompatActivity
             }
         });
 
-        builder.show();
+        final AlertDialog dialog = builder.create();
+
+        dialog.setOnShowListener(new DialogInterface.OnShowListener()
+        {
+            @Override
+            public void onShow(DialogInterface dialogInterface)
+            {
+                Button button = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+                button.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v)
+                    {
+                        String name = input.getText().toString();
+
+                        if (!name.isEmpty() && name.length() <= 3)
+                        {
+                            // Save the Score with the Entered Name in the Database
+                            DatabaseHelper dbHelper = new DatabaseHelper(ResultsActivity.this);
+                            dbHelper.addScore(name, score);
+
+                            // Show success alert
+                            AlertDialog successDialog = new AlertDialog.Builder(ResultsActivity.this)
+                                    .setTitle("Success")
+                                    .setMessage("Highscore uploaded")
+                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener()
+                                    {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    })
+                                    .show();
+
+                            dialog.dismiss();
+                        }
+                        else
+                        {
+                            // Validation if they Enter an Empty or Too Long Name
+                            Toast.makeText(ResultsActivity.this, "Name must be between 1 and 3 characters", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
+        dialog.show();
     }
 }

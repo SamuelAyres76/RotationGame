@@ -3,31 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/main"
-    android:background="#f0f0f0"
+    android:background="@color/candy_floss_pink"
     android:padding="16dp">
 
     <TextView
-    android:id="@+id/titleText"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/welcome_to_the_rotation_game"
-    android:textSize="26sp"
-    android:textColor="#333333"
-    android:textStyle="bold"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="50dp"
-        />
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_to_the_rotation_game"
+        android:textSize="28sp"
+        android:textColor="#333333"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
 
     <Button
-    android:id="@+id/playButton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/play"
-    android:textSize="18sp"
-    android:textColor="#FFFFFF"
-    android:background="@drawable/button_style"
-    android:layout_centerInParent="true"
-    android:layout_marginTop="150dp"
-        />
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play"
+        android:textSize="18sp"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/button_style"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="150dp" />
 
-    </RelativeLayout>
+</RelativeLayout>
