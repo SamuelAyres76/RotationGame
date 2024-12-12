@@ -61,11 +61,8 @@ public class SequenceActivity extends AppCompatActivity implements SensorEventLi
         // Random Sequence Chosen
         colorSequence = generateRandomSequence();
 
-        // Apply the order to the colors
-        northCircle.setImageResource(getColorDrawable(colorSequence.get(0)));
-        southCircle.setImageResource(getColorDrawable(colorSequence.get(1)));
-        eastCircle.setImageResource(getColorDrawable(colorSequence.get(2)));
-        westCircle.setImageResource(getColorDrawable(colorSequence.get(3)));
+        // Apply the colors to fixed positions without changing their layout
+        setColorToCircles();
 
         // Tell the User the Order
         Toast toast = Toast.makeText(this, "Sequence: " + colorSequence.toString(), Toast.LENGTH_LONG);
@@ -78,6 +75,14 @@ public class SequenceActivity extends AppCompatActivity implements SensorEventLi
         // Start sensing where they tilt.
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    }
+
+    // Method to apply colors to circles in fixed positions
+    private void setColorToCircles() {
+        northCircle.setImageResource(getColorDrawable("Red"));
+        southCircle.setImageResource(getColorDrawable("Blue"));
+        eastCircle.setImageResource(getColorDrawable("Green"));
+        westCircle.setImageResource(getColorDrawable("Yellow"));
     }
 
     // Random Sequence Generator
@@ -126,7 +131,7 @@ public class SequenceActivity extends AppCompatActivity implements SensorEventLi
                 showGameOver();
             }
         }
-        .start();
+                .start();
     }
 
     // Shaking Animation when Time is Running Out
@@ -223,13 +228,13 @@ public class SequenceActivity extends AppCompatActivity implements SensorEventLi
         switch (currentColor)
         {
             case "Yellow":
-                if (x < -threshold)
+                if (y < -threshold)
                 {
                     correctTilt = true;
                 }
                 break;
             case "Red":
-                if (y > threshold)
+                if (x < -threshold)
                 {
                     correctTilt = true;
                 }
@@ -241,7 +246,7 @@ public class SequenceActivity extends AppCompatActivity implements SensorEventLi
                 }
                 break;
             case "Green":
-                if (y < -threshold)
+                if (y > threshold)
                 {
                     correctTilt = true;
                 }
